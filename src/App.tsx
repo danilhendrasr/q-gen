@@ -3,22 +3,36 @@ import axios from "axios";
 import RefreshIcon from "./RefreshIcon";
 import "./styles.css";
 
-export default function App() {
-  const [currentQuote, setCurrentQuote] = useState({});
+interface quoteObject {
+  text: string;
+  author: string;
+  genre: string;
+}
 
-  const getRandomQuote = useCallback(async () => {
+const App = () => {
+  const initialQuote: quoteObject = {
+    text: "",
+    author: "",
+    genre: "",
+  };
+
+  const [currentQuote, setCurrentQuote] = useState(initialQuote);
+
+  const getRandomQuote = useCallback(async (): Promise<void> => {
     const quoteData = await axios.get(
       "https://quote-garden.herokuapp.com/api/v2/quotes/random"
     );
 
-    setCurrentQuote({
+    const newQuote: quoteObject = {
       text: quoteData.data.quote.quoteText,
       author: quoteData.data.quote.quoteAuthor,
-      genre: quoteData.data.quote.quoteGenre
-    });
+      genre: quoteData.data.quote.quoteGenre,
+    };
+
+    setCurrentQuote(newQuote);
   }, [setCurrentQuote]);
 
-  useEffect(() => {
+  useEffect((): void => {
     getRandomQuote();
   }, [getRandomQuote]);
 
@@ -27,13 +41,20 @@ export default function App() {
       <div className="quote-wrapper">
         <p className="quote-text-wrapper">{currentQuote.text}</p>
         <div className="quote-info-wrapper">
-          <h2 className="quote-author-wrapper">{currentQuote.author}</h2>
+          <h2 className="quote-author-wrapper">
+            {currentQuote.author}
+          </h2>
           <p className="quote-genre-wrapper">{currentQuote.genre}</p>
         </div>
       </div>
-      <button className="resetButton" onClick={() => getRandomQuote()}>
+      <button
+        className="resetButton"
+        onClick={() => getRandomQuote()}
+      >
         random <RefreshIcon />
       </button>
     </div>
   );
-}
+};
+
+export default App;
