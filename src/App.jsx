@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import "./styles.css";
+import AuthorPage from "./Author";
 
 const App = () => {
   return (
@@ -14,6 +15,10 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <Random />
+          </Route>
+
+          <Route path="/author/:authorName">
+            <AuthorPage />
           </Route>
         </Switch>
       </Router>
