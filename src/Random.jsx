@@ -1,16 +1,11 @@
 import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import Quote from "./Quote";
-import RefreshIcon from "./RefreshIcon";
+import QuoteInfo from "./QuoteInfo";
+import RandomButton from "./RandomButton";
 
 const Random = () => {
-  const initialQuote = {
-    text: "",
-    author: "",
-    genre: "",
-  };
-
-  const [currentQuote, setCurrentQuote] = useState(initialQuote);
+  const [currentQuote, setCurrentQuote] = useState({});
 
   const getRandomQuote = useCallback(async () => {
     const quoteData = await axios.get(
@@ -32,18 +27,15 @@ const Random = () => {
 
   return (
     <div>
-      <Quote
-        text={currentQuote.text}
-        author={currentQuote.author}
-        genre={currentQuote.genre}
-      />
+      <div className="quote-wrapper">
+        <Quote text={currentQuote.text} />
+        <QuoteInfo
+          author={currentQuote.author}
+          genre={currentQuote.genre}
+        />
+      </div>
 
-      <button
-        className="resetButton"
-        onClick={() => getRandomQuote()}
-      >
-        random <RefreshIcon />
-      </button>
+      <RandomButton onClick={() => getRandomQuote()} />
     </div>
   );
 };
