@@ -2,10 +2,9 @@ import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import Quote from "./Quote";
 import RefreshIcon from "./RefreshIcon";
-import QuoteObject from "./quote-object.interface";
 
 const Random = () => {
-  const initialQuote: QuoteObject = {
+  const initialQuote = {
     text: "",
     author: "",
     genre: "",
@@ -13,12 +12,12 @@ const Random = () => {
 
   const [currentQuote, setCurrentQuote] = useState(initialQuote);
 
-  const getRandomQuote = useCallback(async (): Promise<void> => {
+  const getRandomQuote = useCallback(async () => {
     const quoteData = await axios.get(
       "https://quote-garden.herokuapp.com/api/v2/quotes/random"
     );
 
-    const newQuote: QuoteObject = {
+    const newQuote = {
       text: quoteData.data.quote.quoteText,
       author: quoteData.data.quote.quoteAuthor,
       genre: quoteData.data.quote.quoteGenre,
@@ -27,7 +26,7 @@ const Random = () => {
     setCurrentQuote(newQuote);
   }, [setCurrentQuote]);
 
-  useEffect((): void => {
+  useEffect(() => {
     getRandomQuote();
   }, [getRandomQuote]);
 

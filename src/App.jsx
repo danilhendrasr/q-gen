@@ -15,10 +15,6 @@ const App = () => {
           <Route exact path="/">
             <Random />
           </Route>
-
-          <Route path="/1">
-            <div>Heytayo</div>
-          </Route>
         </Switch>
       </Router>
     </div>
