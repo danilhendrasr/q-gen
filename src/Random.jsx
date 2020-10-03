@@ -9,6 +9,7 @@ const Random = () => {
   const [currentQuote, setCurrentQuote] = useState({});
 
   const getRandomQuote = useCallback(async () => {
+    setCurrentQuote({});
     const quoteData = await axios.get(
       "https://quote-garden.herokuapp.com/api/v2/quotes/random"
     );
@@ -29,19 +30,17 @@ const Random = () => {
   return (
     <div>
       {Object.keys(currentQuote).length > 0 ? (
-        <div>
-          <div className="quote-wrapper">
-            <Quote text={currentQuote.text} />
-            <QuoteInfo
-              author={currentQuote.author}
-              genre={currentQuote.genre}
-            />
-          </div>
-          <RandomButton onClick={() => getRandomQuote()} />
+        <div className="quote-wrapper">
+          <Quote text={currentQuote.text} />
+          <QuoteInfo
+            author={currentQuote.author}
+            genre={currentQuote.genre}
+          />
         </div>
       ) : (
         <LoadingIndicator />
       )}
+      <RandomButton onClick={() => getRandomQuote()} />
     </div>
   );
 };
