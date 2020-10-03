@@ -3,6 +3,7 @@ import axios from "axios";
 import Quote from "./Quote";
 import QuoteInfo from "./QuoteInfo";
 import RandomButton from "./RandomButton";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Random = () => {
   const [currentQuote, setCurrentQuote] = useState({});
@@ -27,15 +28,20 @@ const Random = () => {
 
   return (
     <div>
-      <div className="quote-wrapper">
-        <Quote text={currentQuote.text} />
-        <QuoteInfo
-          author={currentQuote.author}
-          genre={currentQuote.genre}
-        />
-      </div>
-
-      <RandomButton onClick={() => getRandomQuote()} />
+      {Object.keys(currentQuote).length > 0 ? (
+        <div>
+          <div className="quote-wrapper">
+            <Quote text={currentQuote.text} />
+            <QuoteInfo
+              author={currentQuote.author}
+              genre={currentQuote.genre}
+            />
+          </div>
+          <RandomButton onClick={() => getRandomQuote()} />
+        </div>
+      ) : (
+        <LoadingIndicator />
+      )}
     </div>
   );
 };

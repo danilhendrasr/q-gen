@@ -85,7 +85,7 @@ body {
 
 .author-name-wrapper {
   width: 100%;
-  height: 40vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,4 +103,36 @@ body {
 .single-quote-wrapper p {
   font-size: 1.5em;
   margin-bottom: 60px;
+}
+
+.back-button {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+
+.loading-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border-top: 3px solid #333;
+  border-left: 3px solid #333;
+  animation: loadingSpin infinite 2s;
+}
+
+@keyframes loadingSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
